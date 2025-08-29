@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: spring-boot-service1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Optional: add custom info shown at /actuator/info
+info:
+  app:
+    name: Spring Boot Service
+    version: 1.0.0
+    description: Sample Spring Boot microservice with Prometheus support

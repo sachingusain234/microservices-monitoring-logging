@@ -9,8 +9,17 @@ services:
       - "8080:8080"
     networks:
       - monitoring
+  service1:
+    build:
+      context: ./services/spring-boot-service/service1
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - monitoring
 
-#  fastapi:
+
+  #  fastapi:
 #    build:
 #      context: ./services/fastapi-service
 #      dockerfile: Dockerfile
