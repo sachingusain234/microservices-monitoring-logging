@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  springboot:
+    build:
+      context: ./services/spring-boot-service/service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - monitoring
+
+#  fastapi:
+#    build:
+#      context: ./services/fastapi-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8000:8000"
+#    networks:
+#      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+
+networks:
+  monitoring:
+    driver: bridge
